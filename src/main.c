@@ -8,7 +8,6 @@ int main() {
 
     Page input;     //char input[256];
     int sel = 0;
-    int len=0;
     printf("What operation would you like to perform(1 -Encrypt, 2 - Decrypt)?");
     scanf("%d", &sel);
 

@@ -38,12 +38,6 @@ void returnEncrypt(char ch){
 
 
 
-
-
-
-
-
-
 void returnDecrypt(){
     Page input;
     char originalChars[LEN] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&():;?.,/";
