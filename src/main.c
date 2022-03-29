@@ -1,150 +1,82 @@
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
 #include "../inc/crypt.h"
 
 
+int main() {
+    setbuf(stdout,0);
+    int exitcode=0;
+
+    Page input;     //char input[256];
+    int sel = 0;
+    int len=0;
+    printf("What operation would you like to perform(1 -Encrypt, 2 - Decrypt)?");
+    scanf("%d", &sel);
 
 
-enum direction{
-    LEN = 81
 
-};
-void returnEncrypt(char ch){
-    unsigned int mask = 0xa5;
-    char originalChars[LEN] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&():;?.,/";
-    char subChars[LEN] = ":;?.,/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&()";
-    char ch2,ch3;
-
-    ch2 = toupper(ch);
-    ch3=ch2;
-
-    for (int i = 0; i < LEN; i++) {
-
-        if (  ch2 == originalChars[i] ){
-            ch3 = subChars[i];
+    if (sel < 1) {
+        printf("So, you do not know what you want!");
+        exitcode=1;
+    }//END bad
+    else if (sel > 2) {
+        printf("So, you do not know what you want!");
+        exitcode=1;
+    }//END bad
+    else if (sel == 1) {
+        printf("So, you want to encrypt the message!\nPlease enter your message:\n");
+        scanf(" %[^\n]s", input);
+        int j =0;
+        while(input[j]!='\0') {     //STOP after end of sentence!
+            returnEncrypt(input[j]);    //function is in crypt.c
+        j++;
         }
-    }
-    int ch4 = (int) ch3;
-    unsigned int binaryXOR = ch4 ^ mask;
-    unsigned int decrypt  = binaryXOR  ^ mask;
-    char backToLetter = (char) decrypt;
-    char almostBack=backToLetter;
-    for (int i = 0; i < LEN; i++) {
-        if (  backToLetter == subChars[i] ){
-            almostBack = originalChars[i];
-        }
-    }
-    printf("%d ",binaryXOR);
-}//END OF DECRYPT
+    }//END IF 1
 
+    else if (sel == 2) {
+        returnDecrypt();    //function in crypt.c
+}//END IF 2
 
-
-void returnDencrypt(char ch){
-    unsigned int mask = 0xa5;
-    char originalChars[LEN] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&():;?.,/";
-    char subChars[LEN] = ":;?.,/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&()";
-    char ch2,ch3;
-
-    ch2 = toupper(ch);
-    ch3=ch2;
-
-    for (int i = 0; i < LEN; i++) {
-
-        if (  ch2 == originalChars[i] ){
-            ch3 = subChars[i];
-        }
-    }
-    int ch4 = (int) ch3;
-    unsigned int binaryXOR = ch4 ^ mask;
-    unsigned int decrypt  = binaryXOR  ^ mask;
-    char backToLetter = (char) decrypt;
-    char almostBack=backToLetter;
-    for (int i = 0; i < LEN; i++) {
-        if (  backToLetter == subChars[i] ){
-            almostBack = originalChars[i];
-        }
-    }
-    printf("%c",almostBack);
-}//END OF DECRYPT
-
-int main()
-{
-//          this is a top secret message
-
-//    printf("hey dum dumb enter some shitz");
-    char input[LEN] ="hey dum dumb enter some shitz";
-//
-//    scanf("%s",input);
-//    for(int i =0; input[i]!='\0';i++ ){
-//    returnEncrypt(input[i]);
-////        returnDencrypt(input[i]);
-//
-//    }
-
-//    scanf("%s",input);
-for(int j=0; j<LEN;j++) {
-   returnEncrypt(input[j]);
-      // returnDencrypt(input[j]);
-}
-
-    return 0;
-}
+return exitcode;// 1,0
+}//END OF PROGRAM
 
 
 
 
 
+//        char originalChars[LEN] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&():;?.,/";
+//        char subChars[LEN] = ":;?.,/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&()";
+//
+//        unsigned int mask = 0xa5;
+//
+//        printf("So, you want to decrypt the message!\nPlease enter your message:\n");
+//        scanf(" %[^\n]s", input);
+//
+//        char * token = strtok(input, " ");
+//        // loop through the string to extract all other tokens
+//        while( token != NULL ) {
+//
+//
+//
+//       int ch4 = atoi(token);   // convert ascii to int
+//
+//       //unsigned int decrypt  = ch4  ^ mask;
+//       unsigned int decrypt= crypt(ch4,mask); //using macro
+//        char backToLetter = (char) decrypt; //casting int ascii back to char  235 --> T
+//        char almostBack=backToLetter;
+//        for (int i = 0; i < LEN; i++) {
+//            if (  backToLetter == subChars[i] )  // comparing the 2 lists
+//            {
+//                almostBack = originalChars[i];  //swapping match
+//            }
+//        }
+//        printf("%c",almostBack);   //printing Individual letter,  To get sentence Run in loop
+//
+//            token = strtok(NULL, " ");
+//            } // broken up
 
-//    unsigned int mask = 0xa5;
-//    unsigned int toEncrypt;
-//    char originalChars[LEN] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&():;?.,/";
-// char subChars[LEN] = ":;?.,/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&()";
-//    char ch,ch2,ch3;
-//    ch = 't';
-//    printf("%c in uppercase is represented as %c",
-//           ch, toupper(ch));
-//    ch2 = toupper(ch);
-//
-//    printf("ToUpper%c\n", ch2);
-//
-//
-//     for (int i = 0; i < LEN; i++) {
-//
-//                     if (  ch2 == originalChars[i] ){
-//                         ch3 = subChars[i];
-//                         printf("fount t");
-//                     }
-//                     else {printf("");}
-// }
-//
-//    printf("\n\n%c",ch3);
-//
-//    int ch4 = (int) ch3;
-//    printf("\n\n%d",ch4);
-//
-//
-//
-//    ///////////////////////////////////////////
-//
-//    int numBits = sizeof(int) * 8;
-//    char binaryString[numBits + 1];
-//
-//    toEncrypt = ch4;
-//
-//
-//    getBinary(ch4, numBits, binaryString);
-//    printf("Binary XOR:\t\t\t%s - %i\n",binaryString, ch4);
-//
-//
-//    unsigned int binaryXOR = ch4 ^ mask;
-//    getBinary(binaryXOR, numBits, binaryString);
-//    printf("Binary XOR:\t\t\t%s - %i\n",binaryString, binaryXOR);
-//
-//
-//    unsigned int ch5 = binaryXOR^ mask;
-//    getBinary(ch5, numBits, binaryString);
-//    printf("Binary XOR:\t\t\t%s - %i\n",binaryString, ch5);
+
+
+
 
 
 
